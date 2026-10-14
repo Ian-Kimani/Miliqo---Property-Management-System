@@ -27,13 +27,13 @@
 ---
 
 > **📌 Note on Source Code Visibility:**  
-> *NyumbaFlow (branded as **Miliqo** in production) is an active commercial property management platform with a private source repository. This public repository serves as the **System Architecture & Engineering Case Study**, documenting the technical design, relational data modeling, and financial billing algorithms behind the platform. Hiring managers, CTOs, and technical reviewers are welcome to [reach out](#-contact--codebase-walkthrough) for a live codebase walkthrough or temporary read access.*
+> *Miliqo is an active commercial property management platform with a private source repository. This public repository serves as the **System Architecture & Engineering Case Study**, documenting the technical design, relational data modeling, and financial billing algorithms behind the platform. Hiring managers, CTOs, and technical reviewers are welcome to [reach out](#-contact--codebase-walkthrough) for a live codebase walkthrough or temporary read access.*
 
 ---
 
 ## 🚀 Executive Summary
 
-**NyumbaFlow (Miliqo)** is a full-stack, multi-property rental and utility management platform purpose-built for landlords and property managers in Kenya. Beyond standard rent tracking, it solves the complex financial accounting challenges of East African residential and commercial properties—most notably **dynamic KPLC Mother-Meter to Sub-Meter electricity cost apportionment**, **per-unit water meter billing**, **automated tenant overpayment credit ledgers**, and **instant server-streamed PDF monthly statements**.
+**NyumbaFlow (Miliqo)** is a full-stack, multi-property rental and utility management platform purpose-built for landlords and property managers in Kenya. Beyond standard rent tracking, it solves the complex financial accounting challenges of Many residential and commercial properties—most notably **dynamic KPLC Mother-Meter to Sub-Meter electricity cost apportionment**, **per-unit water meter billing**, **automated tenant overpayment credit ledgers**, and **instant server-streamed PDF monthly statements**.
 
 * 🌐 **Live Production URL:** [nyumba-flow-snowy.vercel.app](https://nyumba-flow-snowy.vercel.app)
 
@@ -327,8 +327,8 @@ If you are a **technical recruiter, hiring manager, or engineering lead** intere
 * 👤 **Engineer:** Ian Wabacha Kimani
 * 🌐 **Live Application:** [nyumba-flow-snowy.vercel.app](https://nyumba-flow-snowy.vercel.app)
 * 🐙 **GitHub:** [@ian-kimani](https://github.com/ian-kimani)
-* 💼 **LinkedIn:** [Insert your LinkedIn URL]
-* 📧 **Email:** [Insert your Email Address]
+* 💼 **LinkedIn:** [(https://www.linkedin.com/in/ian-wabacha)]
+* 📧 **Email:** [kimaniian273@gmail.com]
 
 ---
 
