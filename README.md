@@ -260,17 +260,33 @@ Instead of writing temporary PDF files to the server filesystem (which introduce
 
 ## 📸 Screenshots & Interface Preview
 
-> *(Replace the placeholder links below with screenshots from your live deployment)*
+### Product Website
 
-| Executive Analytics Dashboard | KPLC Mother-Meter Billing Pipeline |
-| :---: | :---: |
-| ![Dashboard](https://via.placeholder.com/600x350?text=Miliqo+Executive+Dashboard) | ![Electricity Billing](https://via.placeholder.com/600x350?text=Mother+Meter+Tariff+Engine) |
-| *Real-time collection growth, utility donut charts, and 12-month revenue trends.* | *3-stage KPLC mother meter rate calculation and sub-meter apportionment.* |
+| Landing Page | Product Features | Management Workflow |
+| :---: | :---: | :---: |
+| ![NyumbaFlow landing page](docs/screenshots/marketing-hero.png) | ![NyumbaFlow product features](docs/screenshots/marketing-features.png) | ![NyumbaFlow management workflow](docs/screenshots/marketing-workflow.png) |
 
-| Tenant 360° Financial Ledger | Streamed PDF Monthly Statements |
+### Application Interface
+
+| Executive Dashboard | Analytics Dashboard |
 | :---: | :---: |
-| ![Tenant Details](https://via.placeholder.com/600x350?text=Tenant+360+Ledger+View) | ![PDF Statement](https://via.placeholder.com/600x350?text=Automated+PDF+Statement) |
-| *Complete multi-utility billing, payment receipts, and credit balance tracking.* | *Itemized PDF invoices with meter readings and M-Pesa payment instructions.* |
+| ![Executive analytics dashboard](docs/screenshots/dashboard-overview.png) | ![Collection and utility analytics](docs/screenshots/dashboard-analytics.png) |
+
+| Properties | Houses |
+| :---: | :---: |
+| ![Property portfolio management](docs/screenshots/properties.png) | ![House and unit management](docs/screenshots/houses.png) |
+
+| Tenants | Rent Bills |
+| :---: | :---: |
+| ![Tenant management](docs/screenshots/tenants.png) | ![Rent billing ledger](docs/screenshots/rent-bills.png) |
+
+| Reports | Monthly Tenant Statement |
+| :---: | :---: |
+| ![Financial reports](docs/screenshots/reports.png) | ![Streamed monthly tenant statement](docs/screenshots/tenant-statement.png) |
+
+| Tenant Ledger | Tenant Payments |
+| :---: | :---: |
+| ![Tenant financial ledger](docs/screenshots/tenant-ledger.png) | ![Tenant payment history](docs/screenshots/tenant-payments.png) |
 
 ---
 
