@@ -33,24 +33,26 @@
 
 ## 🚀 Executive Summary
 
-**NyumbaFlow (Miliqo)** is a full-stack, multi-property rental and utility management platform purpose-built for landlords and property managers in Kenya. Beyond standard rent tracking, it solves the complex financial accounting challenges of Many residential and commercial properties—most notably **dynamic KPLC Mother-Meter to Sub-Meter electricity cost apportionment**, **per-unit water meter billing**, **automated tenant overpayment credit ledgers**, and **instant server-streamed PDF monthly statements**.
+**NyumbaFlow (Miliqo)** is a full-stack property management platform for landlords and property managers in Kenya. It brings properties, houses, tenants, rent collection, expenses, balances, and monthly statements into one place. Utility billing for water and shared electricity is available as an add-on when a property needs it.
 
 * 🌐 **Live Production URL:** [nyumba-flow-snowy.vercel.app](https://nyumba-flow-snowy.vercel.app)
 
 ---
 
-## 🌍 The Problem & Domain Complexity
+## 🌍 The Everyday Problem
 
-Managing multi-unit apartment blocks and commercial spaces in Kenya involves operational and accounting challenges that generic property software fails to address:
+Running a property is more than collecting rent. Landlords and property managers need a clear view of their units, tenants, occupancy, payments, outstanding balances, expenses, and day-to-day follow-ups. When this is spread across notebooks, paper receipts, phone messages, and spreadsheets, it becomes difficult to know what is current and what still needs attention.
 
-1. **Fluctuating KPLC Shared Utility Tariffs (Mother Meter vs. Sub-Meters):**  
-   Many residential courts and apartment blocks share a single primary Kenya Power (KPLC) **Mother Meter** while individual houses run on internal sub-meters. Because KPLC bills include variable fuel energy charges, forex adjustments, inflation adjustments, EPRA/WARMA levies, and VAT, the effective rate per kWh changes every single month. Landlords using static per-unit rates either suffer financial losses when tariffs spike or overcharge tenants.
-2. **Fragmented Payment Reconciliation & Overpayments:**  
-   Tenants frequently pay rounded figures via M-Pesa (e.g., paying KES 15,000 against a KES 14,350 bill) or make partial installment payments across Rent, Electricity, and Water. Tracking carried-forward arrears alongside overpayment credits in spreadsheets leads to revenue leakage and tenant disputes.
-3. **Manual Monthly Invoicing:**  
-   Calculating individual sub-meter consumption, cross-referencing arrears, and drafting itemized monthly statements and KPLC payment notices for dozens of units takes days every billing cycle.
+1. **Property information is scattered:**
+   A manager may have several properties, each with different units, rents, tenants, and occupancy changes. Without one shared record, it is easy to lose track of vacant units, active tenancies, or important tenant details.
+2. **Rent and payment follow-up takes time:**
+   Payments may be partial, late, or made against different charges. Managers need a simple way to see what has been paid, what is outstanding, and which tenants need a follow-up.
+3. **Monthly administration is repetitive:**
+   Preparing rent bills, recording expenses, reviewing balances, and sending tenant statements every month can take hours. A useful system should make this routine work easier instead of adding more paperwork.
+4. **Utilities vary by property:**
+   Some properties need water billing or shared electricity billing, while others do not. These services should support the main property workflow without making every landlord manage unnecessary complexity.
 
-**NyumbaFlow** replaces manual spreadsheets with an automated, ACID-compliant financial engine that handles the entire property lifecycle from tenant move-in to monthly utility apportionment and move-out reconciliation.
+**NyumbaFlow** puts the core property work in one place: manage units and tenants, track rent and expenses, follow up on balances, and produce clear statements. Water and electricity billing extend that workflow for properties that use those features.
 
 ---
 
@@ -248,9 +250,9 @@ Instead of writing temporary PDF files to the server filesystem (which introduce
   * Categorized unit views (`BedSitter`, `1 Bedroom`, `2 Bedroom`, `Single`, `Shop`) with occupancy badges.
 * **👥 Tenant 360° Profile:**
   * Unified ledger view per tenant with dedicated tabs for Rent Bills, Rent Payments, Electricity Bills, Electricity Payments, Water Bills, and Water Payments, scoped strictly to the tenant's active `moveInDate` and `moveOutDate` window.
-* **⚡ Electricity Sub-Metering Module:**
+* **⚡ Optional Electricity Sub-Metering Module:**
   * Mother Meter registry, House-to-Meter assignments, initial reading baselines, monthly KPLC bill ingestion, sub-meter reading entry, automated tenant bill generation, and a specialized **KPLC Printable Bulk Notice View** (`/print/electricity-bills`) formatted with PayBill `888888` / `*977#` instructions.
-* **💧 Water Billing Module:**
+* **💧 Optional Water Billing Module:**
   * Initial house water meter reading setup, monthly reading entry with automatic `previousWaterReading` roll-forward on the `House` model, bill generation, and payment tracking.
 * **🧾 Expenses & Financial Reporting:**
   * Property-level expense logging with daily, monthly, and annual aggregation summaries.
