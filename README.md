@@ -1,6 +1,6 @@
 <div align="center">
   <h1>🏢 NyumbaFlow (Miliqo)</h1>
-  <p><strong>Enterprise-Grade Property & Utility Billing Management System for the East African Rental Market</strong></p>
+  <p><strong>Property & Utility Billing Management System for the East African Rental Market</strong></p>
 
   <p>
     <a href="https://nyumba-flow-snowy.vercel.app"><img src="https://img.shields.io/badge/Live_Application-Vercel-059669?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" /></a>
@@ -13,7 +13,9 @@
 
   <p>
     <a href="#-executive-summary">Executive Summary</a> •
-    <a href="#-the-problem--domain-complexity">Domain Problem</a> •
+    <a href="#-the-everyday-problem">Everyday Problem</a> •
+    <a href="#-what-nyumbaflow-does">What It Does</a> •
+    <a href="#-how-it-works">Workflow</a> •
     <a href="#-system-architecture">Architecture</a> •
     <a href="#-database-schema-erd">Database Design</a> •
     <a href="#-core-engineering-highlights">Engineering Highlights</a> •
@@ -27,15 +29,71 @@
 ---
 
 > **📌 Note on Source Code Visibility:**  
-> *Miliqo is an active commercial property management platform with a private source repository. This public repository serves as the **System Architecture & Engineering Case Study**, documenting the technical design, relational data modeling, and financial billing algorithms behind the platform. Hiring managers, CTOs, and technical reviewers are welcome to [reach out](#-contact--codebase-walkthrough) for a live codebase walkthrough or temporary read access.*
+> *Miliqo is a commercial property management platform. The full source code lives in a private repository. This public repo is a technical case study covering the system architecture, database design, and billing logic. Hiring managers and technical reviewers are welcome to [reach out](#-contact--codebase-walkthrough) for a live walkthrough or temporary read access.*
 
 ---
 
 ## 🚀 Executive Summary
 
-**NyumbaFlow (Miliqo)** is a full-stack property management platform for landlords and property managers in Kenya. It brings properties, houses, tenants, rent collection, expenses, balances, and monthly statements into one place. Utility billing for water and shared electricity is available as an add-on when a property needs it.
+**NyumbaFlow (Miliqo)** is a property management platform for landlords and property managers in Kenya. It keeps property, tenant, rent, payment, expense, and statement records in one place, with water and shared electricity billing available when a property needs it.
 
 * 🌐 **Live Production URL:** [nyumba-flow-snowy.vercel.app](https://nyumba-flow-snowy.vercel.app)
+
+---
+
+## 🏠 What NyumbaFlow Does
+
+NyumbaFlow helps property managers keep their daily work organized. They can manage properties and units, assign tenants, record rent and payments, follow up on balances, track expenses, and create monthly statements and reports.
+
+Water billing and electricity sub-metering are optional modules. They can be enabled for properties that need them without making the main property-management workflow more complicated.
+
+### Who It Is For
+
+* Individual landlords managing one or more properties
+* Property managers handling apartment blocks or rental portfolios
+* Apartment administrators responsible for tenant and payment records
+* Small commercial property owners who need simple occupancy and billing records
+
+### Core Features
+
+* Properties, houses, units, and occupancy
+* Tenants, tenancies, move-in, and move-out records
+* Rent bills, payments, balances, and payment history
+* Property expenses and financial reports
+* Monthly tenant statements and collection follow-up
+
+### Optional Features
+
+* Water meter readings and water bills
+* KPLC mother-meter and sub-meter billing
+* Printable KPLC payment notices
+
+### Why It Is Useful
+
+NyumbaFlow helps managers spend less time maintaining spreadsheets and searching through receipts. It gives them a clearer view of each property, makes payment follow-up easier, keeps tenant records together, and speeds up monthly reporting.
+
+### How It Works
+
+1. Create a property and add its houses or units.
+2. Add tenants and record their tenancies.
+3. Create rent bills and record payments as they come in.
+4. Review balances, expenses, occupancy, and tenants who need follow-up.
+5. Generate statements and reports at the end of the month.
+6. Add water or electricity billing when the property requires it.
+
+### Project Status
+
+* The live application is available at [nyumba-flow-snowy.vercel.app](https://nyumba-flow-snowy.vercel.app).
+* The application source code is kept in a private repository.
+* This public repository contains the architecture, database design, engineering notes, and product screenshots.
+* Live walkthroughs and temporary source access are available on request.
+
+### Scope and Assumptions
+
+* The system is designed around rental workflows commonly used in Kenya.
+* KPLC and M-Pesa references are specific to the Kenyan market.
+* Water and electricity features depend on how each property is set up.
+* The public repository does not contain the application source code.
 
 ---
 
@@ -58,7 +116,7 @@ Running a property is more than collecting rent. Landlords and property managers
 
 ## 🏗️ System Architecture
 
-NyumbaFlow is architected as a decoupled, containerized **PERN + Prisma** application with strict separation of concerns across `Routes` $\rightarrow$ `Joi Validators` $\rightarrow$ `Controllers` $\rightarrow$ `Transactional Domain Services` $\rightarrow$ `Prisma ORM`.
+NyumbaFlow is a **PERN + Prisma** application (PostgreSQL, Express, React, Node) with a clear separation of concerns: `Routes` $\rightarrow$ `Joi Validators` $\rightarrow$ `Controllers` $\rightarrow$ `Domain Services` $\rightarrow$ `Prisma ORM`.
 
 ```mermaid
 graph TD
@@ -105,14 +163,14 @@ graph TD
 
 | Layer | Technologies Used | Purpose & Architectural Role |
 | :--- | :--- | :--- |
-| **Frontend UI** | React, Vite, Tailwind CSS, Lucide Icons | Fast SPA rendering, custom design system, print-optimized invoice views (`@media print`). |
-| **State & Forms** | TanStack React Query, React Hook Form, Zod, Axios | Declarative data fetching, cache invalidation, request/response interceptors, and schema-driven form validation. |
-| **Data Visualization** | Recharts, `date-fns` | 12-month revenue trend line charts, utility collection donut charts, and date manipulation. |
-| **Backend Runtime** | Node.js, Express.js | RESTful API server with centralized error handling (`AppError` & Prisma `P2002` constraint mapping). |
-| **Database & ORM** | PostgreSQL, Prisma ORM | 16-model relational schema with composite unique constraints, B-tree indexes, and interactive `$transaction` blocks. |
-| **Security & Validation** | JWT, `bcrypt`, `cookie-parser`, Joi, `helmet`, `express-rate-limit` | Dual cookie/header JWT authentication, password hashing, strict payload validation, and brute-force protection. |
-| **Document Engine** | `PDFKit` | Zero-disk, in-memory PDF statement generation streamed directly to HTTP responses. |
-| **DevOps & Infra** | Docker, Docker Compose, Nginx, Vercel | Multi-container orchestration, Nginx SPA routing & reverse proxy, and cloud deployment. |
+| **Frontend UI** | React, Vite, Tailwind CSS, Lucide Icons | Fast SPA with a clean design system and print-ready invoice views (`@media print`). |
+| **State & Forms** | TanStack React Query, React Hook Form, Zod, Axios | Data fetching, caching, request handling, and form validation. |
+| **Data Visualization** | Recharts, `date-fns` | Revenue trends, utility collection charts, and date handling. |
+| **Backend Runtime** | Node.js, Express.js | REST API with shared error handling and Prisma constraint mapping. |
+| **Database & ORM** | PostgreSQL, Prisma ORM | 16-model relational schema with unique constraints, indexes, and interactive `$transaction` blocks. |
+| **Security & Validation** | JWT, `bcrypt`, `cookie-parser`, Joi, `helmet`, `express-rate-limit` | JWT authentication, password hashing, payload validation, and brute-force protection. |
+| **Document Engine** | `PDFKit` | Generates PDF statements in memory and streams them to the browser. |
+| **DevOps & Infra** | Docker, Docker Compose, Nginx, Vercel | Containers, SPA routing, reverse proxying, and cloud deployment. |
 
 ---
 
@@ -203,7 +261,9 @@ erDiagram
 ## ⚙️ Core Engineering Highlights
 
 ### 1. 3-Stage KPLC Mother-Meter to Sub-Meter Tariff State Machine
-To ensure landlords recover 100% of their primary KPLC bill without overcharging tenants, the electricity module implements a deterministic state machine (`OPEN` $\rightarrow$ `READINGS_ENTERED` $\rightarrow$ `BILLS_GENERATED`):
+Landlords need to recover the full KPLC bill without overcharging tenants. The electricity module follows a simple three-stage process:
+
+`OPEN` $\rightarrow$ `READINGS_ENTERED` $\rightarrow$ `BILLS_GENERATED`
 
 ```mermaid
 stateDiagram-v2
@@ -214,48 +274,46 @@ stateDiagram-v2
     BILLS_GENERATED --> [*] : Printable KPLC Notices & Invoices unlocked
 ```
 
-* **Dynamic Rate Recalculation:** Every time a sub-meter reading is created, updated, or deleted, an internal helper (`recalculateBaseRate`) aggregates total units across all sub-meters for that cycle and computes the exact effective tariff:
-  $$\text{Effective Base Rate} = \frac{\text{Mother Meter Amount Payable}}{\sum_{i=1}^{n} \text{Tenant Units Used}_i}$$
-* **Automatic State Transition:** The service compares `prisma.meterAssignment.count` against `prisma.meterReading.count` for the active cycle. Only when every assigned house has a valid reading (`currentReading >= previousReading`) does the bill unlock the `READINGS_ENTERED` state.
-* **Atomic Batch Bill Generation:** Generating individual house electricity bills executes inside an interactive `prisma.$transaction`, ensuring that if any house lacks an active tenant or encounters a constraint error, the entire batch rolls back cleanly.
+- Every time a sub-meter reading is added or updated, the system recalculates the exact rate:
+  `Base Rate = Mother Meter Amount ÷ Total Tenant Units`
+- Bills can only be generated when every assigned house has a valid reading.
+- Bill generation runs inside a single database transaction. If anything fails, the whole batch is rolled back.
 
 ### 2. Automated Tenant Credit Ledger & Overpayment Engine
-Real-world rental payments rarely match invoice totals to the exact shilling. NyumbaFlow implements an automated double-side adjustment mechanism for overpayments and credits:
-* **Overpayment Capture:** When a payment is recorded via `rentPayment.service` or `electricityPayment.service`, the engine calculates:
-  $$\text{Applied Payment} = \min(\text{Payment Amount}, \text{Remaining Bill Balance})$$
-  $$\text{Overpayment} = \text{Payment Amount} - \text{Applied Payment}$$
-  If $\text{Overpayment} > 0$, the bill is marked `PAID` (`balance = 0`), and the excess is atomically credited to `Tenant.creditBalance` inside the same database transaction.
-* **Auto-Deduction on Next Billing Cycle:** During the next month's batch bill generation, the engine automatically inspects `Tenant.creditBalance`, applies `Math.min(creditBalance, currentCharge + arrears)`, decrements the tenant's remaining credit balance, and records `creditApplied` on the bill for complete auditability.
+Real payments rarely match the exact invoice amount. The system handles this cleanly:
+
+- When a payment is recorded, any excess is automatically added to the tenant’s credit balance.
+- On the next billing cycle, available credit is applied to the new bill and any arrears before the tenant is charged.
+- Everything happens inside the same database transaction so the numbers stay consistent.
 
 ### 3. Atomic Tenancy Lifecycle (Move-In Automation & Move-Out Write-Offs)
-* **Move-In Provisioning (`assignTenant`):** Executes an atomic transaction that creates or links the tenant, verifies no active tenancy collision exists, records the security `depositAmount`, optionally generates and marks the first month's rent bill + payment receipt (`MOVEIN-XXXXXX`), and flips the unit status from `VACANT` to `OCCUPIED`.
-* **Move-Out & Debt Write-Off (`moveOutTenant`):** Deactivates the tenancy (`isActive: false`, `moveOutDate: now()`), frees the unit back to `VACANT`, and automatically transitions any remaining unpaid bills to `CANCELLED` so historical bad debt does not pollute active portfolio KPIs.
+- Move-in creates the tenancy, records the deposit, optionally generates the first rent bill + receipt, and marks the unit as occupied - all in one transaction.
+
+- Move-out ends the tenancy, frees the unit, and cancels any remaining unpaid bills so old debt does not keep appearing in active reports.
 
 ### 4. Zero-Disk Server-Side PDF Statement Streaming
-Instead of writing temporary PDF files to the server filesystem (which introduces I/O bottlenecks and fails on stateless container platforms), `report.controller.js` and `pdf.service.js` stream binary PDF chunks directly to the client using `PDFKit`:
-* Aggregates Rent, Electricity (previous/current readings, kWh units, applied rate), and Water usage per occupied house for any selected property and month.
-* Pipes `doc.pipe(res)` with `Content-Type: application/pdf` to generate either a single-tenant invoice or a multi-page master PDF containing statements for an entire apartment block in a single HTTP request.
+Instead of writing temporary files to disk, the system streams PDFs directly to the browser using PDFKit. This works well on container platforms and avoids file-system issues. You can generate a single tenant statement or a multi-page PDF for an entire block in one request.
 
 ---
 
 ## 🧩 Feature Modules
 
 * **📊 Executive Dashboard:**
-  * Real-time KPI cards (Rent Collected This Month, Month-over-Month Collection Growth %, Total Outstanding Balance split by Rent/Electricity/Water, Occupancy Rate, Active Tenants, Monthly Expenses).
-  * Interactive Recharts **Donut Charts** for Rent, Electricity, and Water collection ratios.
+  * Dashboard cards for this month's rent, collection growth, outstanding balances by charge, occupancy, active tenants, and expenses.
+  * **Donut Charts** showing Rent, Electricity, and Water collection ratios.
   * **12-Month Collection Trend Line Chart** comparing Rent, Electricity, and Water cashflows across the year.
-  * **Action Needed Panel:** Top 5 overdue tenants ranked by total arrears with one-click `tel:` (Call) and `sms:` (Message) triggers.
+  * **Action Needed Panel:** The 5 tenants with the highest arrears, with one-click `tel:` (Call) and `sms:` (Message) actions.
 * **🏘️ Portfolio Management (Properties & Houses):**
-  * Multi-property support with configurable per-property settings (`hasElectricity` toggle, custom `waterRatePerUnit`).
-  * Categorized unit views (`BedSitter`, `1 Bedroom`, `2 Bedroom`, `Single`, `Shop`) with occupancy badges.
+  * Manage multiple properties with settings for electricity (`hasElectricity`) and water rates (`waterRatePerUnit`).
+  * View units by type (`BedSitter`, `1 Bedroom`, `2 Bedroom`, `Single`, `Shop`) with occupancy badges.
 * **👥 Tenant 360° Profile:**
-  * Unified ledger view per tenant with dedicated tabs for Rent Bills, Rent Payments, Electricity Bills, Electricity Payments, Water Bills, and Water Payments, scoped strictly to the tenant's active `moveInDate` and `moveOutDate` window.
+  * Each tenant has tabs for Rent Bills, Rent Payments, Electricity Bills, Electricity Payments, Water Bills, and Water Payments, limited to the active `moveInDate` and `moveOutDate` period.
 * **⚡ Optional Electricity Sub-Metering Module:**
-  * Mother Meter registry, House-to-Meter assignments, initial reading baselines, monthly KPLC bill ingestion, sub-meter reading entry, automated tenant bill generation, and a specialized **KPLC Printable Bulk Notice View** (`/print/electricity-bills`) formatted with PayBill `888888` / `*977#` instructions.
+  * Manage mother meters, assign meters to houses, set initial readings, record monthly KPLC bills, enter sub-meter readings, and generate tenant bills. Includes a **KPLC Printable Bulk Notice View** (`/print/electricity-bills`) with PayBill `888888` / `*977#` instructions.
 * **💧 Optional Water Billing Module:**
-  * Initial house water meter reading setup, monthly reading entry with automatic `previousWaterReading` roll-forward on the `House` model, bill generation, and payment tracking.
+  * Set initial house water readings, record monthly readings, carry forward `previousWaterReading` on the `House` model, generate bills, and track payments.
 * **🧾 Expenses & Financial Reporting:**
-  * Property-level expense logging with daily, monthly, and annual aggregation summaries.
+  * Record property expenses and view daily, monthly, and annual summaries.
   * **7 Built-in Report Views:** Rent Collection, Electricity Usage, Outstanding Balances, Unified Payment History, Property Occupancy %, Monthly Tenant PDF Statements, and Net Income Financial Summary ($\text{Total Income} - \text{Total Expenses}$).
 
 ---
@@ -294,7 +352,7 @@ Instead of writing temporary PDF files to the server filesystem (which introduce
 
 ## 📡 API Reference Overview
 
-The backend exposes **16 modular REST route groups** mounted under `/api`:
+The backend exposes **16 modular REST route groups** mounted under `/api`. Together, these routes support the same property, tenant, billing, payment, expense, and reporting workflows available in the application:
 
 | Module | Base Endpoint | Auth / RBAC | Description |
 | :--- | :--- | :--- | :--- |
@@ -321,24 +379,24 @@ The backend exposes **16 modular REST route groups** mounted under `/api`:
 
 ## 🔒 Security & Production Readiness
 
-* **Strict Multi-Tenant Landlord Data Isolation (IDOR Prevention):**  
-  Every database query across properties, houses, tenants, meters, bills, and payments scopes ownership to `req.user.id` via relational traversal (`where: { house: { property: { userId } } }`). A manager can never view or mutate another landlord's records by guessing resource IDs.
-* **Defense-in-Depth Authentication:**  
-  Issues signed JWTs stored in `HttpOnly`, `Secure`, `SameSite` cookies (with `Authorization: Bearer` header support for SPA flexibility) and hashes passwords using `bcrypt` (10 salt rounds).
-* **Brute-Force & Abuse Protection:**  
-  Configures `express-rate-limit` with a strict limiter on `/api/auth/login` (max 5 requests per 15-minute window per IP) alongside a global API rate limiter, `helmet()` HTTP security headers, and `x-powered-by` header removal.
-* **Fail-Fast Environment Bootstrapping:**  
-  `server.js` validates all critical environment variables (`DATABASE_URL`, `JWT_SECRET`, `JWT_EXPIRES_IN`, `CLIENT_URL`, `NODE_ENV`, `PORT`) before binding to the port and registers graceful shutdown handlers for `uncaughtException` and `unhandledRejection`.
+* **Data isolation:**
+  Every query is scoped to the logged-in landlord through `req.user.id` and relational checks (`where: { house: { property: { userId } } }`). A manager cannot view or change another landlord's records by guessing resource IDs.
+* **Authentication:**
+  JWTs are stored in signed `HttpOnly`, `Secure`, `SameSite` cookies, with `Authorization: Bearer` header support for SPA use. Passwords are hashed with `bcrypt` (10 salt rounds).
+* **Rate limiting and security headers:**
+  `express-rate-limit` limits `/api/auth/login` to 5 requests per 15-minute window per IP, alongside a global API limiter. `helmet()` adds HTTP security headers and `x-powered-by` is removed.
+* **Environment checks at startup:**
+  `server.js` checks all required environment variables (`DATABASE_URL`, `JWT_SECRET`, `JWT_EXPIRES_IN`, `CLIENT_URL`, `NODE_ENV`, `PORT`) before starting and handles graceful shutdown for `uncaughtException` and `unhandledRejection`.
 
 ---
 
 ## 📬 Contact & Codebase Walkthrough
 
-I architected and built **NyumbaFlow (Miliqo)** end-to-end—from relational database design and transactional billing services to the React/Tailwind frontend and Dockerized deployment.
+I designed and built **NyumbaFlow (Miliqo)** end-to-end, from the relational database and transactional billing services to the React/Tailwind frontend and Dockerized deployment.
 
 If you are a **technical recruiter, hiring manager, or engineering lead** interested in:
 * A live screen-share walkthrough of the private repository and business logic
-* Discussing the architectural trade-offs and utility billing state machines
+* To discuss the architecture or billing flows
 * Full-stack, backend, or frontend software engineering opportunities
 
 **Let's connect:**
